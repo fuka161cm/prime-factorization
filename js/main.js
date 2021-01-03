@@ -1,60 +1,47 @@
-function generateRandomNumber() {
+const generateRandomNumber = () => {
   return Math.round(Math.random() * 1000);
-}
+};
 
-function primeFactorization(num) {
-  let result = [];
-  if (num === 1) {
-    return[1];
-  }
-  let init = 2;
-  while (num !== 1) {
-    let i = init;
-    while (i < Number.MAX_SAFE_INTEGER) {
-      if (num % i == 0) {
-        result.push(i);
-        num /= i;
-        break;
-      }
-      i++;
-    }
-    init = i;
-  }
-  return result;
-}
+const write = (targetDOM, innerHTML) => {
+  targetDOM.innerHTML = innerHTML;
+};
 
-  function isEven(num) {
+const isEven = num => {
     return num % 2 === 0;
-  }
+};
    
-function isPrimeNumber(num) {
-  if(num === 2) {
-    return true;
-  }
-  if(num % 2 === 0) {
-    return false;
-  }
+const isPrimeNumber = num => {
+  if (num === 2) return true;
+  if (num % 2 === 0) return false;
   for (i = 2; i < num; i++) {
-    if (num % i === 0) {
-      return false;
-    }
+    if (num % i === 0) return false;
   }
   return true;
-}
+};
 
-function generatePrimeFactorizationResultMessage(primeNumbers) {
+const primeFactorization = num => {
+  const primeFactors = [];
+  if (num === 1) return [1];
+
+  for (i = 2; i <= num; i++) {
+    while (num % i === 0) {
+      primeFactors.push(i);
+      num /= i;
+    }
+  }
+  return primeFactors;
+};
+
+const generatePrimeFactorizationResultMessage = primeNumbers => {
   return primeNumbers.map(function (num, index) {
-    let stringNum = num.toString();
+    const stringNum = num.toString();
     if (index === 0) return stringNum;
-    return ' x ' + stringNum;
+    return 'x' + stringNum;
   }).concat('となりますね。').join('');
-}
+};
 
-function write(targeDOM, innerHTML) {
-  targeDOM.innerHTML = innerHTML;
-}
-function main() {
-  let num = generateRandomNumber();
+const main = () => {
+  const num = generateRandomNumber();
   write(document.getElementById('currentNumber'), '数値は' + num + 'です。');
   if (isEven(num)) {
     write(document.getElementById('messageForEvenOrOdd'), '偶数です。<br>');
@@ -69,6 +56,6 @@ function main() {
   }
   write(document.getElementById('primeFactorizationTitle'), '<p>以下、素因数分解してみよう。</>');
   write(document.getElementById('primeFactorizationTitle'), generatePrimeFactorizationResultMessage(primeFactorization(num)));
-}
+};
 
 main();
